@@ -22,3 +22,4 @@ requests.http
 *.njsproj
 *.sln
 *.sw?
+.env
