@@ -14,8 +14,21 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+function isUrl(string: string) {
+  try {
+    return Boolean(new URL(string));
+  } catch (err) {
+    return false;
+  }
+}
+
 app.post("/api/addurl", async (req, res) => {
   const { url, name }: { url: string; name: string } = req.body;
+
+  if (!isUrl(url)) {
+    res.status(400).send({ message: "Url sent is not an Url" });
+    return;
+  }
 
   const result = await turso.execute({
     sql: "SELECT shortUrl FROM urls WHERE shortUrl = :name",
