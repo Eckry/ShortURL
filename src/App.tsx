@@ -1,29 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
+interface Url {
+  realUrl: string;
+  shortUrl: string;
+}
+
 function App() {
-  const [url, setUrl] = useState("");
+  const [allUrls, setAllUrls] = useState<Url[]>([]);
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setUrl(event.target.value);
-  }
-
-  async function handleClick() {
-    const body = { url: url, name: "back" };
-    const result = await fetch("http://localhost:3000/api/addurl", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-    const data = await result.json();
-    console.log(data);
-  }
+  useEffect(() => {
+    fetch("http://localhost:3000/api/getall")
+      .then((res) => res.json())
+      .then((urls) => {
+        setAllUrls(urls);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   return (
     <main>
-      <input type="text" onChange={handleChange} value={url} />
-      <input type="text" />
-      <button onClick={handleClick}>SUBMIT</button>
+      <form>
+        <input type="text" />
+        <input type="text" />
+        <button>SUBMIT</button>
+      </form>
+      {allUrls.map(({ realUrl, shortUrl }) => {
+        return (
+          <div>
+            {realUrl} - {shortUrl}
+          </div>
+        );
+      })}
     </main>
   );
 }
