@@ -85,6 +85,16 @@ app.get("/:shortUrl", async (req, res) => {
     .send({ message: "Url successfully found, redirecting...", url: realUrl });
 });
 
+app.get("/api/getall", async (_, res) => {
+  const result = await turso.execute("SELECT * FROM urls");
+
+  if (result.rows.length === 0) {
+    res.status(404).send({ message: "No urls found" });
+  }
+
+  res.status(200).send(result.rows);
+});
+
 const PORT = process.env.PORT ?? 3000;
 
 app.listen(PORT, () => {
