@@ -24,6 +24,13 @@ export default function AllUrls({ urls, deleteUrl }: Props) {
       const data = (await res.json()) as deleteApiResponse;
       deleteUrl(shortUrl);
       toast(data.message);
+
+      const urlsOwned = localStorage.getItem("urlsOwned");
+      if (urlsOwned) {
+        const urlParsed: Record<string, number> = JSON.parse(urlsOwned);
+        delete urlParsed[shortUrl];
+        localStorage.setItem("urlsOwned", JSON.stringify(urlParsed));
+      }
     } catch (err) {
       console.error(err);
     }
