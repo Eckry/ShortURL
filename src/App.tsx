@@ -51,7 +51,7 @@ function App() {
       const newUrls = allUrls.filter(({ shortUrl }) => {
         return shortUrl !== data.shortUrl;
       });
-      
+
       setAllUrls([
         { realUrl: data.realUrl, shortUrl: data.shortUrl },
         ...newUrls,
@@ -65,10 +65,17 @@ function App() {
     async function fetchData() {
       try {
         const res = await fetch("http://localhost:3000/api/getall");
+
+        if (!res.ok) throw new Error("Error getting the urls");
+
         const urls = (await res.json()) as Url[];
-        setAllUrls(urls.reverse());
+
+        if (urls) setAllUrls(urls.reverse());
       } catch (err) {
-        console.error(err);
+        if (err instanceof Error) {
+          toast.error(err.message);
+          console.error(err);
+        }
       }
     }
 
