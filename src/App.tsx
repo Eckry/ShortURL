@@ -21,11 +21,21 @@ function App() {
   }, []);
 
   return (
-    <main>
-      <form>
-        <input type="text" />
-        <input type="text" />
-        <button>SUBMIT</button>
+    <main className="main-container">
+      <form className="form-container">
+        <label className="form-label">
+          Long url
+          <input
+            className="form-input"
+            placeholder="https://example.com"
+            type="text"
+          />
+        </label>
+        <label className="form-label">
+          Short url
+          <input className="form-input" placeholder="example" type="text" />
+        </label>
+        <button className="submit-button">Create url!</button>
       </form>
       {allUrls.map(({ realUrl, shortUrl }) => {
         return (
