@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { type Url } from "./types.d";
+import { addApiResponse, type Url } from "./types.d";
 import AllUrls from "./components/AllUrls";
+import { toast, Toaster } from "sonner";
 
 function App() {
   const [allUrls, setAllUrls] = useState<Url[]>([]);
@@ -34,7 +35,7 @@ function App() {
         body: JSON.stringify(body),
       });
 
-      const data = (await res.json()) as Url;
+      const data = (await res.json()) as addApiResponse;
 
       if (!data.shortUrl) throw new Error("Something ocurred");
       if (!data.realUrl) throw new Error("Something ocurred");
@@ -47,6 +48,7 @@ function App() {
         { realUrl: data.realUrl, shortUrl: data.shortUrl },
         ...newUrls,
       ]);
+      toast(data.message);
     } catch (err) {
       console.log(err);
     } finally {
@@ -79,6 +81,7 @@ function App() {
 
   return (
     <main className="main-container">
+      <Toaster />
       <form onSubmit={handleSubmit} className="form-container">
         <label className="form-label">
           Long url
