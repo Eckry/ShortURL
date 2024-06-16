@@ -10,7 +10,7 @@ export default function AllUrls({ urls }: Props) {
     <section className="urls-section">
       {urls.map(({ shortUrl, realUrl }) => {
         return (
-          <a href={realUrl} className="url-container">
+          <a key={shortUrl} href={realUrl} className="url-container">
             <p>{shortUrl}</p>
             <p>{realUrl}</p>
           </a>
