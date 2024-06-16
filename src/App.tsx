@@ -6,23 +6,76 @@ import AllUrls from "./components/AllUrls";
 function App() {
   const [allUrls, setAllUrls] = useState<Url[]>([]);
 
-  useEffect(() => {
-    fetch("http://localhost:3000/api/getall")
-      .then((res) => res.json())
-      .then((urls) => {
-        setAllUrls(urls);
-      })
-      .catch((err) => {
-        console.error(err);
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    if (!e) return;
+    e.preventDefault();
+
+    const target = e.currentTarget;
+
+    if (target.realurl.value === "" || target.shorturl.value === "") return;
+
+    const body = {
+      url: target.realurl.value,
+      name: target.shorturl.value,
+    };
+
+    try {
+      const res = await fetch("http://localhost:3000/api/addurl", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
       });
+
+      const data = (await res.json()) as Url;
+
+      if (!data.shortUrl) throw new Error("Something ocurred");
+      if (!data.realUrl) throw new Error("Something ocurred");
+
+      const newUrls = allUrls.filter(({ shortUrl }) => {
+        return shortUrl !== data.shortUrl;
+      });
+
+      setAllUrls([
+        { realUrl: data.realUrl, shortUrl: data.shortUrl },
+        ...newUrls,
+      ]);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      const urlsOwned = localStorage.getItem("urlsOwned");
+      if (urlsOwned) {
+        const urlsParsed = JSON.parse(urlsOwned);
+        localStorage.setItem(
+          "urlsOwned",
+          JSON.stringify({ ...urlsParsed, [body.name]: 1 })
+        );
+      } else {
+        localStorage.setItem("urlsOwned", JSON.stringify({ [body.name]: 1 }));
+      }
+    }
+  }
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch("http://localhost:3000/api/getall");
+        const urls = (await res.json()) as Url[];
+        setAllUrls(urls);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    fetchData();
   }, []);
 
   return (
     <main className="main-container">
-      <form className="form-container">
+      <form onSubmit={handleSubmit} className="form-container">
         <label className="form-label">
           Long url
           <input
+            name="realurl"
             className="form-input"
             placeholder="https://example.com"
             type="text"
@@ -30,7 +83,12 @@ function App() {
         </label>
         <label className="form-label">
           Short url
-          <input className="form-input" placeholder="example" type="text" />
+          <input
+            name="shorturl"
+            className="form-input"
+            placeholder="example"
+            type="text"
+          />
         </label>
         <button className="submit-button">Create url!</button>
       </form>
