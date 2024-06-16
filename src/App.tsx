@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { addApiResponse, type Url } from "./types.d";
+import { type Url } from "./types.d";
 import AllUrls from "./components/AllUrls";
 import { toast, Toaster } from "sonner";
+import uploadUrl from "./services/uploadUrl";
 
 function App() {
   const [allUrls, setAllUrls] = useState<Url[]>([]);
@@ -16,7 +17,6 @@ function App() {
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    if (!e) return;
     e.preventDefault();
 
     const target = e.currentTarget;
@@ -28,18 +28,13 @@ function App() {
       name: target.shorturl.value,
     };
 
-    try {
-      const res = await fetch("http://localhost:3000/api/addurl", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+    const [err, data] = await uploadUrl(body);
 
-      const data = (await res.json()) as addApiResponse;
+    if (err) {
+      toast.error(err.message);
+    }
 
-      if (!data.shortUrl) throw new Error("Something ocurred");
-      if (!data.realUrl) throw new Error("Something ocurred");
-
+    if (data) {
       const newUrls = allUrls.filter(({ shortUrl }) => {
         return shortUrl !== data.shortUrl;
       });
@@ -48,20 +43,8 @@ function App() {
         { realUrl: data.realUrl, shortUrl: data.shortUrl },
         ...newUrls,
       ]);
+
       toast(data.message);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      const urlsOwned = localStorage.getItem("urlsOwned");
-      if (urlsOwned) {
-        const urlsParsed = JSON.parse(urlsOwned);
-        localStorage.setItem(
-          "urlsOwned",
-          JSON.stringify({ ...urlsParsed, [body.name]: 1 })
-        );
-      } else {
-        localStorage.setItem("urlsOwned", JSON.stringify({ [body.name]: 1 }));
-      }
     }
   }
 
