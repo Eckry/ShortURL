@@ -23,3 +23,10 @@
 .url-container:hover {
   transform: translateY(-7px);
 }
+
+.realurl {
+  white-space: wrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  overflow: hidden;
+}

@@ -12,7 +12,7 @@ export default function AllUrls({ urls }: Props) {
         return (
           <a key={shortUrl} href={realUrl} className="url-container">
             <p>{shortUrl}</p>
-            <p>{realUrl}</p>
+            <p className="realurl">{realUrl}</p>
           </a>
         );
       })}
