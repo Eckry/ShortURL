@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-
-interface Url {
-  realUrl: string;
-  shortUrl: string;
-}
+import { type Url } from "./types.d";
+import AllUrls from "./components/AllUrls";
 
 function App() {
   const [allUrls, setAllUrls] = useState<Url[]>([]);
@@ -37,13 +34,7 @@ function App() {
         </label>
         <button className="submit-button">Create url!</button>
       </form>
-      {allUrls.map(({ realUrl, shortUrl }) => {
-        return (
-          <div>
-            {realUrl} - {shortUrl}
-          </div>
-        );
-      })}
+      <AllUrls urls={allUrls} />
     </main>
   );
 }
