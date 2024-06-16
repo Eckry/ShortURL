@@ -25,7 +25,7 @@
 }
 
 .realurl {
-  white-space: wrap;
+  white-space: nowrap;
   text-overflow: ellipsis;
   max-width: 100%;
   overflow: hidden;
