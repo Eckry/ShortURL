@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { type deleteApiResponse, type Url } from "../types";
+import { toast } from "sonner";
 import "./styles/AllUrls.css";
 
 interface Props {
@@ -22,6 +23,7 @@ export default function AllUrls({ urls, deleteUrl }: Props) {
 
       const data = (await res.json()) as deleteApiResponse;
       deleteUrl(shortUrl);
+      toast(data.message);
     } catch (err) {
       console.error(err);
     }
