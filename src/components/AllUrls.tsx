@@ -21,8 +21,8 @@ export default function AllUrls({ urls, handleDelete }: Props) {
     <section className="urls-section">
       {urls.map(({ shortUrl, realUrl }) => {
         return (
-          <div className="relative go-up">
-            <a key={shortUrl} href={realUrl} className="url-container">
+          <div key={shortUrl} className="relative go-up">
+            <a href={realUrl} className="url-container">
               <p>{shortUrl}</p>
               <p className="realurl">{realUrl}</p>
             </a>
