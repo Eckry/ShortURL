@@ -23,10 +23,6 @@ export default async function uploadUrl(
     if (!data.shortUrl) return [new Error("Something ocurred")];
     if (!data.realUrl) return [new Error("Something ocurred")];
 
-    return [undefined, data];
-  } catch (err) {
-    if (err instanceof Error) return [err];
-  } finally {
     const urlsOwned = localStorage.getItem("urlsOwned");
     if (urlsOwned) {
       const urlsParsed = JSON.parse(urlsOwned);
@@ -37,6 +33,10 @@ export default async function uploadUrl(
     } else {
       localStorage.setItem("urlsOwned", JSON.stringify({ [body.name]: 1 }));
     }
+
+    return [undefined, data];
+  } catch (err) {
+    if (err instanceof Error) return [err];
   }
 
   return [new Error("Uknown errors")];
