@@ -1,40 +1,14 @@
 import { useEffect, useState } from "react";
-import { type deleteApiResponse, type Url } from "../types";
-import { toast } from "sonner";
+import { type Url } from "../types";
 import "./styles/AllUrls.css";
 
 interface Props {
   urls: Url[];
-  deleteUrl: (urlToDelete: string) => void;
+  handleDelete: (urlToDelete: string) => void;
 }
 
-export default function AllUrls({ urls, deleteUrl }: Props) {
+export default function AllUrls({ urls, handleDelete }: Props) {
   const [urlsOwned, setUrlsOwned] = useState<Record<string, string>>({});
-
-  async function deleteUrlApi(shortUrl: string) {
-    try {
-      const res = await fetch("http://localhost:3000/api/deleteurl", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: shortUrl }),
-      });
-
-      if (!res.ok) throw new Error("Something ocurred");
-
-      const data = (await res.json()) as deleteApiResponse;
-      deleteUrl(shortUrl);
-      toast(data.message);
-
-      const urlsOwned = localStorage.getItem("urlsOwned");
-      if (urlsOwned) {
-        const urlParsed: Record<string, number> = JSON.parse(urlsOwned);
-        delete urlParsed[shortUrl];
-        localStorage.setItem("urlsOwned", JSON.stringify(urlParsed));
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }
 
   useEffect(() => {
     const hasUrlsOwned = localStorage.getItem("urlsOwned");
@@ -55,7 +29,7 @@ export default function AllUrls({ urls, deleteUrl }: Props) {
             {!!urlsOwned[shortUrl] && (
               <button
                 className="delete-button"
-                onClick={() => deleteUrlApi(shortUrl)}
+                onClick={() => handleDelete(shortUrl)}
               >
                 X
               </button>
