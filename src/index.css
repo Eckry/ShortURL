@@ -1,8 +1,8 @@
 :root {
-  --orange: #F9B572;
-  --light-green: #99B080;
-  --green: #748E63;
-  --white: #FAF8ED;
+  --primary: #91DDCF;
+  --secondary: #F7F9F2;
+  --tertiary: #E8C5E5;
+  --highlight: #F19ED2;
 }
 
 body {
