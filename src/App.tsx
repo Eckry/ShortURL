@@ -6,6 +6,14 @@ import AllUrls from "./components/AllUrls";
 function App() {
   const [allUrls, setAllUrls] = useState<Url[]>([]);
 
+  function deleteUrl(urlToDelete: string) {
+    const newUrls = allUrls.filter((url) => {
+      return url.shortUrl !== urlToDelete;
+    });
+
+    setAllUrls(newUrls);
+  }
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     if (!e) return;
     e.preventDefault();
@@ -92,7 +100,7 @@ function App() {
         </label>
         <button className="submit-button">Create url!</button>
       </form>
-      <AllUrls urls={allUrls} />
+      <AllUrls deleteUrl={deleteUrl} urls={allUrls} />
     </main>
   );
 }
