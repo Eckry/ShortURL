@@ -31,13 +31,13 @@ app.post("/api/addurl", async (req, res) => {
   }
 
   const result = await turso.execute({
-    sql: "SELECT shortUrl FROM urls WHERE shortUrl = :name",
+    sql: "SELECT shortUrl, realUrl FROM urls WHERE shortUrl = :name",
     args: { name: name },
   });
 
   if (result.rows.length > 0) {
-    const [{ shortUrl }] = result.rows;
-    res.status(200).send({ message: "Url already exists", shortUrl });
+    const [{ shortUrl, realUrl }] = result.rows;
+    res.status(200).send({ message: "Url already exists", shortUrl, realUrl });
     return;
   }
 
@@ -46,7 +46,9 @@ app.post("/api/addurl", async (req, res) => {
     args: { shortUrl: name, realUrl: url },
   });
 
-  res.status(200).send({ message: "Url successfully added", url: name });
+  res
+    .status(200)
+    .send({ message: "Url successfully added", shorturl: name, realurl: url });
 });
 
 app.delete("/api/deleteurl", async (req, res) => {
