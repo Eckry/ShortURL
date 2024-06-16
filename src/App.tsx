@@ -36,7 +36,10 @@ function App() {
 
     const target = e.currentTarget;
 
-    if (target.realurl.value === "" || target.shorturl.value === "") return;
+    if (target.shorturl.value.length < 3) {
+      toast.warning("Your url name must have at least 3 characters");
+      return;
+    }
 
     const body = {
       url: target.realurl.value,
