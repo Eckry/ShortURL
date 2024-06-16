@@ -37,7 +37,7 @@ app.post("/api/addurl", async (req, res) => {
 
   if (result.rows.length > 0) {
     const [{ shortUrl, realUrl }] = result.rows;
-    res.status(200).send({ message: "Url already exists", shortUrl, realUrl });
+    res.status(200).send({ message: "Name already exists", shortUrl, realUrl });
     return;
   }
 
@@ -48,7 +48,7 @@ app.post("/api/addurl", async (req, res) => {
 
   res
     .status(200)
-    .send({ message: "Url successfully added", shorturl: name, realurl: url });
+    .send({ message: "Url successfully added", shortUrl: name, realUrl: url });
 });
 
 app.delete("/api/deleteurl", async (req, res) => {
