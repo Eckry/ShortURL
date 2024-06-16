@@ -5,6 +5,7 @@ import AllUrls from "./components/AllUrls";
 import { toast, Toaster } from "sonner";
 import uploadUrl from "./services/uploadUrl";
 import deleteUrl from "./services/deleteUrl";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 function App() {
   const [allUrls, setAllUrls] = useState<Url[]>([]);
@@ -60,6 +61,8 @@ function App() {
 
       setLastUrl(data);
       toast(data.message);
+
+      window.navigator.clipboard.writeText(data.shortUrl);
     }
   }
 
@@ -112,7 +115,12 @@ function App() {
         <section>
           <h2>{lastUrl.message}!</h2>
           <p>{lastUrl.shortUrl} leads you to</p>
-          <p>{lastUrl.realUrl}</p>
+          <CopyToClipboard text={lastUrl.realUrl}>
+            <p>{lastUrl.realUrl}</p>
+          </CopyToClipboard>
+          <CopyToClipboard text={lastUrl.realUrl}>
+            <button>Copy</button>
+          </CopyToClipboard>
         </section>
       )}
       <AllUrls handleDelete={handleDelete} urls={allUrls} />
