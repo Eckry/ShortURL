@@ -51,7 +51,7 @@ function App() {
       const newUrls = allUrls.filter(({ shortUrl }) => {
         return shortUrl !== data.shortUrl;
       });
-
+      
       setAllUrls([
         { realUrl: data.realUrl, shortUrl: data.shortUrl },
         ...newUrls,
@@ -66,7 +66,7 @@ function App() {
       try {
         const res = await fetch("http://localhost:3000/api/getall");
         const urls = (await res.json()) as Url[];
-        setAllUrls(urls);
+        setAllUrls(urls.reverse());
       } catch (err) {
         console.error(err);
       }
