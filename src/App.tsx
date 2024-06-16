@@ -4,11 +4,23 @@ import { type Url } from "./types.d";
 import AllUrls from "./components/AllUrls";
 import { toast, Toaster } from "sonner";
 import uploadUrl from "./services/uploadUrl";
+import deleteUrl from "./services/deleteUrl";
 
 function App() {
   const [allUrls, setAllUrls] = useState<Url[]>([]);
 
-  function deleteUrl(urlToDelete: string) {
+  async function handleDelete(urlToDelete: string) {
+    const [err, data] = await deleteUrl(urlToDelete);
+
+    if (err) {
+      toast.error(err.message);
+      return;
+    }
+
+    if (data) {
+      toast(data.message);
+    }
+
     const newUrls = allUrls.filter((url) => {
       return url.shortUrl !== urlToDelete;
     });
@@ -32,6 +44,7 @@ function App() {
 
     if (err) {
       toast.error(err.message);
+      return;
     }
 
     if (data) {
@@ -86,7 +99,7 @@ function App() {
         </label>
         <button className="submit-button">Create url!</button>
       </form>
-      <AllUrls deleteUrl={deleteUrl} urls={allUrls} />
+      <AllUrls handleDelete={handleDelete} urls={allUrls} />
     </main>
   );
 }
