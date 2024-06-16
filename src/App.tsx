@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { type Url } from "./types.d";
+import { type addApiResponse, type Url } from "./types.d";
 import AllUrls from "./components/AllUrls";
 import { toast, Toaster } from "sonner";
 import uploadUrl from "./services/uploadUrl";
@@ -8,6 +8,7 @@ import deleteUrl from "./services/deleteUrl";
 
 function App() {
   const [allUrls, setAllUrls] = useState<Url[]>([]);
+  const [lastUrl, setLastUrl] = useState<addApiResponse | null>(null);
 
   async function handleDelete(urlToDelete: string) {
     const [err, data] = await deleteUrl(urlToDelete);
@@ -26,6 +27,7 @@ function App() {
     });
 
     setAllUrls(newUrls);
+    if (urlToDelete === lastUrl?.shortUrl) setLastUrl(null);
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -52,11 +54,11 @@ function App() {
         return shortUrl !== data.shortUrl;
       });
 
-      setAllUrls([
-        { realUrl: data.realUrl, shortUrl: data.shortUrl },
-        ...newUrls,
-      ]);
+      const newLastUrl = { realUrl: data.realUrl, shortUrl: data.shortUrl };
 
+      setAllUrls([newLastUrl, ...newUrls]);
+
+      setLastUrl(data);
       toast(data.message);
     }
   }
@@ -92,7 +94,7 @@ function App() {
             name="realurl"
             className="form-input"
             placeholder="https://example.com"
-            type="text"
+            type="url"
           />
         </label>
         <label className="form-label">
@@ -106,6 +108,13 @@ function App() {
         </label>
         <button className="submit-button">Create url!</button>
       </form>
+      {!!lastUrl && (
+        <section>
+          <h2>{lastUrl.message}!</h2>
+          <p>{lastUrl.shortUrl} leads you to</p>
+          <p>{lastUrl.realUrl}</p>
+        </section>
+      )}
       <AllUrls handleDelete={handleDelete} urls={allUrls} />
     </main>
   );
