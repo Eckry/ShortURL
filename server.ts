@@ -82,9 +82,8 @@ app.get("/:shortUrl", async (req, res) => {
   }
 
   const [{ realUrl }] = result.rows;
-  res
-    .status(200)
-    .send({ message: "Url successfully found, redirecting...", url: realUrl });
+  if (typeof realUrl === "string") return res.redirect(realUrl);
+  res.status(500).send({ message: "Something went wrong" });
 });
 
 app.get("/api/getall", async (_, res) => {
@@ -96,6 +95,8 @@ app.get("/api/getall", async (_, res) => {
 
   res.status(200).send(result.rows);
 });
+
+app.use(express.static("dist"));
 
 const PORT = process.env.PORT ?? 3000;
 
