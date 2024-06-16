@@ -23,7 +23,12 @@ export default async function uploadUrl(
     if (!data.shortUrl) return [new Error("Something ocurred")];
     if (!data.realUrl) return [new Error("Something ocurred")];
 
+    const urlAlreadyExists = data.message === "Name already exists";
+
+    if (urlAlreadyExists) return [undefined, data];
+
     const urlsOwned = localStorage.getItem("urlsOwned");
+
     if (urlsOwned) {
       const urlsParsed = JSON.parse(urlsOwned);
       localStorage.setItem(
