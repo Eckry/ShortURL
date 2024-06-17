@@ -37,7 +37,9 @@ app.post("/api/addurl", async (req, res) => {
 
   if (result.rows.length > 0) {
     const [{ shortUrl, realUrl }] = result.rows;
-    res.status(200).send({ message: "That name already exists", shortUrl, realUrl });
+    res
+      .status(200)
+      .send({ message: "That name already exists", shortUrl, realUrl });
     return;
   }
 
@@ -48,7 +50,11 @@ app.post("/api/addurl", async (req, res) => {
 
   res
     .status(200)
-    .send({ message: "Url successfully created", shortUrl: name, realUrl: url });
+    .send({
+      message: "Url successfully created",
+      shortUrl: name,
+      realUrl: url,
+    });
 });
 
 app.delete("/api/deleteurl", async (req, res) => {
@@ -91,6 +97,7 @@ app.get("/api/getall", async (_, res) => {
 
   if (result.rows.length === 0) {
     res.status(404).send({ message: "No urls found" });
+    return;
   }
 
   res.status(200).send(result.rows);
