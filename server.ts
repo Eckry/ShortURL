@@ -22,6 +22,8 @@ function isUrl(string: string) {
   }
 }
 
+//////////////////////////* POST *//////////////////////////
+
 app.post("/api/addurl", async (req, res) => {
   const { url, name }: { url: string; name: string } = req.body;
 
@@ -55,6 +57,8 @@ app.post("/api/addurl", async (req, res) => {
   });
 });
 
+//////////////////////////* DELETE *//////////////////////////
+
 app.delete("/api/deleteurl", async (req, res) => {
   const { url }: { url: string } = req.body;
 
@@ -72,6 +76,25 @@ app.delete("/api/deleteurl", async (req, res) => {
 
   res.status(404).send({ message: "Url not found" });
 });
+
+//////////////////////////* PUT *//////////////////////////
+
+app.put("/api/updateclicks", async (req, res) => {
+  const { shortUrl } = req.body;
+
+  const result = await turso.execute({
+    sql: "UPDATE urls SET clicks = clicks + 1 WHERE :shortUrl = shortUrl",
+    args: { shortUrl },
+  });
+
+  if (result.rowsAffected === 0) {
+    return res.status(404).send({ message: "That url doesn't exist" });
+  }
+
+  return res.status(200).send({ message: "Clicks updated" });
+});
+
+//////////////////////////* GET *//////////////////////////
 
 app.get("/:shortUrl", async (req, res) => {
   const { shortUrl } = req.params;
