@@ -5,9 +5,14 @@ import "./styles/AllUrls.css";
 interface Props {
   urls: Url[];
   handleDelete: (urlToDelete: string) => void;
+  handleUpdateClicks: (shortUrl: string) => void;
 }
 
-export default function AllUrls({ urls, handleDelete }: Props) {
+export default function AllUrls({
+  urls,
+  handleDelete,
+  handleUpdateClicks,
+}: Props) {
   const [urlsOwned, setUrlsOwned] = useState<Record<string, string>>({});
 
   useEffect(() => {
@@ -22,7 +27,13 @@ export default function AllUrls({ urls, handleDelete }: Props) {
       {urls.map(({ shortUrl, realUrl, clicks }) => {
         return (
           <div key={shortUrl} className="relative go-up">
-            <a href={realUrl} className="url-container">
+            <a
+              onClick={() => handleUpdateClicks(shortUrl)}
+              href={realUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="url-container"
+            >
               <p>{shortUrl}</p>
               <p className="realurl">{realUrl}</p>
             </a>
