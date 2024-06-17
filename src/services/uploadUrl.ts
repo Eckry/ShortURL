@@ -44,5 +44,5 @@ export default async function uploadUrl(
     if (err instanceof Error) return [err];
   }
 
-  return [new Error("Uknown errors")];
+  return [new Error("Unknown errors")];
 }
