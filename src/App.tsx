@@ -6,10 +6,27 @@ import { toast, Toaster } from "sonner";
 import uploadUrl from "./services/uploadUrl";
 import deleteUrl from "./services/deleteUrl";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import updateClicks from "./services/updateClicks";
 
 function App() {
   const [allUrls, setAllUrls] = useState<Url[]>([]);
   const [lastUrl, setLastUrl] = useState<addApiResponse | null>(null);
+
+  async function handleUpdateClicks(shortUrl: string) {
+    const [err] = await updateClicks(shortUrl);
+
+    if (err) {
+      toast.error(err.message);
+      return;
+    }
+
+    const newUrls = allUrls.map((url) => {
+      if (url.shortUrl === shortUrl) return { ...url, clicks: url.clicks + 1 };
+      return url;
+    });
+
+    setAllUrls(newUrls);
+  }
 
   async function handleDelete(urlToDelete: string) {
     const [err, data] = await deleteUrl(urlToDelete);
@@ -130,7 +147,11 @@ function App() {
           </CopyToClipboard>
         </section>
       )}
-      <AllUrls handleDelete={handleDelete} urls={allUrls} />
+      <AllUrls
+        handleUpdateClicks={handleUpdateClicks}
+        handleDelete={handleDelete}
+        urls={allUrls}
+      />
     </main>
   );
 }
