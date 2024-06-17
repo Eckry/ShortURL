@@ -7,6 +7,7 @@ import uploadUrl from "./services/uploadUrl";
 import deleteUrl from "./services/deleteUrl";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import updateClicks from "./services/updateClicks";
+import getUrls from "./services/getUrls";
 
 function App() {
   const [allUrls, setAllUrls] = useState<Url[]>([]);
@@ -50,7 +51,6 @@ function App() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log("s");
     const target = e.currentTarget;
 
     if (target.shorturl.value.length < 3) {
@@ -92,20 +92,14 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
-      try {
-        const res = await fetch("http://localhost:3000/api/getall");
+      const [err, urls] = await getUrls();
 
-        if (!res.ok) throw new Error("Error getting the urls");
-
-        const urls = (await res.json()) as Url[];
-
-        if (urls) setAllUrls(urls.reverse());
-      } catch (err) {
-        if (err instanceof Error) {
-          toast.error(err.message);
-          console.error(err);
-        }
+      if (err) {
+        toast.error(err.message);
+        return;
       }
+      
+      if (urls) setAllUrls(urls);
     }
 
     fetchData();
