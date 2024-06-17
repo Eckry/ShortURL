@@ -33,7 +33,7 @@ function App() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
+    console.log("s");
     const target = e.currentTarget;
 
     if (target.shorturl.value.length < 3) {
@@ -58,7 +58,11 @@ function App() {
         return shortUrl !== data.shortUrl;
       });
 
-      const newLastUrl = { realUrl: data.realUrl, shortUrl: data.shortUrl };
+      const newLastUrl = {
+        realUrl: data.realUrl,
+        shortUrl: data.shortUrl,
+        clicks: data.clicks,
+      };
 
       setAllUrls([newLastUrl, ...newUrls]);
 

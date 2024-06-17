@@ -19,7 +19,7 @@ export default function AllUrls({ urls, handleDelete }: Props) {
 
   return (
     <section className="urls-section">
-      {urls.map(({ shortUrl, realUrl }) => {
+      {urls.map(({ shortUrl, realUrl, clicks }) => {
         return (
           <div key={shortUrl} className="relative go-up">
             <a href={realUrl} className="url-container">
@@ -34,6 +34,7 @@ export default function AllUrls({ urls, handleDelete }: Props) {
                 X
               </button>
             )}
+            <p>{clicks}</p>
           </div>
         );
       })}
