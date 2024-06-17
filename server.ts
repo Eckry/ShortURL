@@ -48,13 +48,11 @@ app.post("/api/addurl", async (req, res) => {
     args: { shortUrl: name, realUrl: url },
   });
 
-  res
-    .status(200)
-    .send({
-      message: "Url successfully created",
-      shortUrl: name,
-      realUrl: url,
-    });
+  res.status(200).send({
+    message: "Url successfully created",
+    shortUrl: name,
+    realUrl: url,
+  });
 });
 
 app.delete("/api/deleteurl", async (req, res) => {
@@ -88,6 +86,12 @@ app.get("/:shortUrl", async (req, res) => {
   }
 
   const [{ realUrl }] = result.rows;
+
+  await turso.execute({
+    sql: "UPDATE urls SET clicks = clicks + 1 WHERE :shortUrl = shortUrl",
+    args: { shortUrl },
+  });
+
   if (typeof realUrl === "string") return res.redirect(realUrl);
   res.status(500).send({ message: "Something went wrong" });
 });
