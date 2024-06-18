@@ -1,3 +1,5 @@
+import "./styles/UrlForm.css";
+
 interface Props {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }

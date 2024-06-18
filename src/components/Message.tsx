@@ -1,3 +1,4 @@
+import "./styles/Message.css";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { addApiResponse } from "../types.d";
 
