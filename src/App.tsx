@@ -8,6 +8,7 @@ import deleteUrl from "./services/deleteUrl";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import updateClicks from "./services/updateClicks";
 import getUrls from "./services/getUrls";
+import UrlForm from "./components/UrlForm";
 
 function App() {
   const [allUrls, setAllUrls] = useState<Url[]>([]);
@@ -98,7 +99,7 @@ function App() {
         toast.error(err.message);
         return;
       }
-      
+
       if (urls) setAllUrls(urls);
     }
 
@@ -108,27 +109,7 @@ function App() {
   return (
     <main className="main-container">
       <Toaster />
-      <form onSubmit={handleSubmit} className="form-container">
-        <label className="form-label">
-          Long url
-          <input
-            name="realurl"
-            className="form-input"
-            placeholder="https://example.com"
-            type="url"
-          />
-        </label>
-        <label className="form-label">
-          Short url
-          <input
-            name="shorturl"
-            className="form-input"
-            placeholder="example"
-            type="text"
-          />
-        </label>
-        <button className="submit-button">Create url!</button>
-      </form>
+      <UrlForm handleSubmit={handleSubmit} />
       {!!lastUrl && (
         <section>
           <h2>{lastUrl.message}!</h2>
