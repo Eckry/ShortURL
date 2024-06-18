@@ -5,10 +5,10 @@ import AllUrls from "./components/AllUrls";
 import { toast, Toaster } from "sonner";
 import uploadUrl from "./services/uploadUrl";
 import deleteUrl from "./services/deleteUrl";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import updateClicks from "./services/updateClicks";
 import getUrls from "./services/getUrls";
 import UrlForm from "./components/UrlForm";
+import Message from "./components/Message";
 
 function App() {
   const [allUrls, setAllUrls] = useState<Url[]>([]);
@@ -110,18 +110,7 @@ function App() {
     <main className="main-container">
       <Toaster />
       <UrlForm handleSubmit={handleSubmit} />
-      {!!lastUrl && (
-        <section>
-          <h2>{lastUrl.message}!</h2>
-          <p>{lastUrl.shortUrl} leads you to</p>
-          <CopyToClipboard text={lastUrl.realUrl}>
-            <p>{lastUrl.realUrl}</p>
-          </CopyToClipboard>
-          <CopyToClipboard text={lastUrl.realUrl}>
-            <button>Copy</button>
-          </CopyToClipboard>
-        </section>
-      )}
+      {!!lastUrl && <Message lastUrl={lastUrl} />}
       <AllUrls
         handleUpdateClicks={handleUpdateClicks}
         handleDelete={handleDelete}
