@@ -54,6 +54,7 @@ app.post("/api/addurl", async (req, res) => {
     message: "Url successfully created",
     shortUrl: name,
     realUrl: url,
+    clicks: 0,
   });
 });
 
