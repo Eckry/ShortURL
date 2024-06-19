@@ -1,8 +1,9 @@
 :root {
-  --primary: #91DDCF;
-  --secondary: #F7F9F2;
-  --tertiary: #E8C5E5;
-  --highlight: #F19ED2;
+  --primary: #EEEEEE;
+  --secondary: #686D76;
+  --tertiary: #373A40;
+  --highlight: #DC5F00;
+  --light-highlight: #e19e6a;
 }
 
 body {

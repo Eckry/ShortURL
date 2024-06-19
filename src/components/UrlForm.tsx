@@ -8,22 +8,12 @@ export default function UrlForm({ handleSubmit }: Props) {
   return (
     <form onSubmit={handleSubmit} className="form-container">
       <label className="form-label">
-        Long url
-        <input
-          name="realurl"
-          className="form-input"
-          placeholder="https://example.com"
-          type="url"
-        />
+        <input required name="realurl" className="form-input" type="text" />
+        <span className="form-span">Long url</span>
       </label>
       <label className="form-label">
-        Short url
-        <input
-          name="shorturl"
-          className="form-input"
-          placeholder="example"
-          type="text"
-        />
+        <input required name="shorturl" className="form-input" type="text" />
+        <span className="form-span">Short url</span>
       </label>
       <button className="submit-button">Create url!</button>
     </form>

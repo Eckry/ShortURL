@@ -10,6 +10,16 @@ import getUrls from "./services/getUrls";
 import UrlForm from "./components/UrlForm";
 import Message from "./components/Message";
 
+function isUrl(url: string) {
+  console.log(url);
+  try {
+    new URL(url);
+    return true;
+  } catch (err) {
+    if (err) return false;
+  }
+}
+
 function App() {
   const [allUrls, setAllUrls] = useState<Url[]>([]);
   const [lastUrl, setLastUrl] = useState<addApiResponse | null>(null);
@@ -53,6 +63,11 @@ function App() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const target = e.currentTarget;
+
+    if (!isUrl(target.realurl.value)) {
+      toast.warning("You must give a valid URL");
+      return;
+    }
 
     if (target.shorturl.value.length < 3) {
       toast.warning("Your url name must have at least 3 characters");

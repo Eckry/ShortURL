@@ -3,34 +3,77 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 16px;
+  gap: 32px;
   background-color: var(--secondary);
   width: 400px;
-  border-radius: 16px;
-  padding: 1rem;
+  padding: 32px 16px 16px 16px;
   position: relative;
+  box-shadow: 8px 8px 0 0 black;
 }
 
 .form-label {
-  color: var(--highlight);
+  color: var(--primary);
+  position: relative;
 }
 
 .form-input {
-  background-color: var(--highlight);
-  color: var(--tertiary);
+  background-color: var(--tertiary);
+  color: var(--primary);
   padding: 0.5rem 1rem;
   outline: none;
   border: none;
   display: block;
-  border-radius: 6px;
   font-size: 16px;
   width: 100%;
+  position: relative;
 }
 
 .submit-button {
   border: none;
   outline: none;
-  background-color: var(--tertiary);
-  border-radius: 6px;
+  background-color: var(--highlight);
   padding: 0.5rem;
+  color: var(--primary);
+  font-weight: bold;
+  transition: 0.25s ease-in-out;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  transform: scale(1.03);
+  background-color: var(--light-highlight);
+}
+
+.form-span {
+  position: absolute;
+  left: 15px;
+  top: 7px;
+  z-index: 2;
+  pointer-events: none;
+  transition: 0.1s ease;
+  font-weight: bold;
+}
+
+.form-input:valid ~ .form-span {
+  transform: translate(-18px, -30px) scale(0.9);
+}
+
+.form-input:focus ~ .form-span {
+  transform: translate(-18px, -30px) scale(0.9);
+}
+
+.form-label:has(.form-input:focus)::before {
+  width: 100%;
+}
+
+.form-label::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: var(--highlight);
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  transition: 0.15s ease-in-out;
 }
