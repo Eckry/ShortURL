@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { type Url } from "../types";
 import "./styles/AllUrls.css";
+import { CloseIcon } from "../icons";
 
 interface Props {
   urls: Url[];
@@ -26,7 +27,7 @@ export default function AllUrls({
     <section className="urls-section">
       {urls.map(({ shortUrl, realUrl, clicks }) => {
         return (
-          <div key={shortUrl} className="relative go-up">
+          <div key={shortUrl} className="relative">
             <a
               onClick={() => handleUpdateClicks(shortUrl)}
               href={realUrl}
@@ -34,7 +35,8 @@ export default function AllUrls({
               rel="noreferrer"
               className="url-container"
             >
-              <p>{shortUrl}</p>
+              <p className="shorturl">{shortUrl}</p>
+              <span className="line"></span>
               <p className="realurl">{realUrl}</p>
             </a>
             {!!urlsOwned[shortUrl] && (
@@ -42,10 +44,10 @@ export default function AllUrls({
                 className="delete-button"
                 onClick={() => handleDelete(shortUrl)}
               >
-                X
+                <CloseIcon />
               </button>
             )}
-            <p>{clicks}</p>
+            <p className="clicks">Clicks: {clicks}</p>
           </div>
         );
       })}
