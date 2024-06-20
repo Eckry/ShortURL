@@ -20,10 +20,10 @@ export const CloseIcon = () => {
 export const ArrowIcon = () => {
   return (
     <svg
-      width="24"
-      height="24"
+      width="34"
+      height="34"
       viewBox="0 0 24 24"
-      stroke-width="1.5"
+      stroke-width="2"
       stroke="#e19e6a"
       fill="none"
       stroke-linecap="round"
