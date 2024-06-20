@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { type Url } from "../types";
 import "./styles/AllUrls.css";
-import { CloseIcon } from "../icons";
+import { CloseIcon, CopyIcon } from "../icons";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { toast } from "sonner";
 
 interface Props {
   urls: Url[];
@@ -15,6 +17,10 @@ export default function AllUrls({
   handleUpdateClicks,
 }: Props) {
   const [urlsOwned, setUrlsOwned] = useState<Record<string, string>>({});
+
+  function handleClick(){
+    toast.success("Link copied!");
+  }
 
   useEffect(() => {
     const hasUrlsOwned = localStorage.getItem("urlsOwned");
@@ -47,6 +53,12 @@ export default function AllUrls({
                 <CloseIcon />
               </button>
             )}
+            <CopyToClipboard text={`${window.location.origin}/${shortUrl}`}>
+              <button onClick={handleClick} className="copy-allurls">
+                <CopyIcon />
+              </button>
+            </CopyToClipboard>
+
             <p className="clicks">Clicks: {clicks}</p>
           </div>
         );
