@@ -40,8 +40,8 @@ export const ArrowIcon = () => {
 export const CopyIcon = () => {
   return (
     <svg
-      width="24"
-      height="24"
+      width="34"
+      height="34"
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
