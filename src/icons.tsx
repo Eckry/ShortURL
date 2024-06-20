@@ -41,7 +41,7 @@ export const CopyIcon = () => {
   return (
     <svg
       width="34"
-      height="34"
+      height="24"
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
