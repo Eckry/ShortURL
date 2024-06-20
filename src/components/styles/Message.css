@@ -1,0 +1,42 @@
+.message-section {
+  text-align: center;
+  margin: 32px auto;
+  background-color: var(--secondary);
+  color: var(--primary);
+  padding: 8px 16px 24px 16px;
+  width: 600px;
+  box-shadow: 8px 8px 0 0 black;
+  position: relative;
+}
+
+.message-title {
+  border-bottom: 3px solid var(--highlight);
+  padding: 8px;
+  color: var(--light-highlight);
+  margin-bottom: 16px;
+}
+
+.message-shorturl,
+.message-realurl {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  overflow: hidden;
+  background-color: var(--tertiary);
+  padding: 8px;
+}
+
+.message-shorturl {
+  cursor: pointer;
+}
+
+.copy {
+  position: absolute;
+  top: 5%;
+  right: 2%;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--light-highlight);
+}
