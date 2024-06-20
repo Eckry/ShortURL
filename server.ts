@@ -33,15 +33,15 @@ app.post("/api/addurl", async (req, res) => {
   }
 
   const result = await turso.execute({
-    sql: "SELECT shortUrl, realUrl FROM urls WHERE shortUrl = :name",
+    sql: "SELECT shortUrl, realUrl, clicks FROM urls WHERE shortUrl = :name",
     args: { name: name },
   });
 
   if (result.rows.length > 0) {
-    const [{ shortUrl, realUrl }] = result.rows;
+    const [{ shortUrl, realUrl, clicks }] = result.rows;
     res
       .status(200)
-      .send({ message: "That name already exists", shortUrl, realUrl });
+      .send({ message: "That name already exists", shortUrl, realUrl, clicks });
     return;
   }
 
