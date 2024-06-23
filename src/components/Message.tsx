@@ -1,6 +1,6 @@
 import "./styles/Message.css";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { addApiResponse } from "../types.d";
+import { addApiResponse } from "../types";
 import { ArrowIcon, CopyIcon } from "../icons";
 import { toast } from "sonner";
 

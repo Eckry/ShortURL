@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { type addApiResponse, type Url } from "./types.d";
+import { type addApiResponse, type Url } from "./types";
 import AllUrls from "./components/AllUrls";
 import { toast, Toaster } from "sonner";
 import uploadUrl from "./services/uploadUrl";

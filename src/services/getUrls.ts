@@ -1,4 +1,4 @@
-import { Url } from "../types.d";
+import { Url } from "../types";
 
 export default async function getUrls(): Promise<[Error?, Url[]?]> {
   try {
