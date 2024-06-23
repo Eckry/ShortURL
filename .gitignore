@@ -23,3 +23,5 @@ requests.http
 *.sln
 *.sw?
 .env
+
+.vercel
