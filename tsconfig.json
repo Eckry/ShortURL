@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "server.ts", "env.d.ts"],
+  "include": ["src", "backend/servebackend/env.d.tsenv.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

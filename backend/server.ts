@@ -6,8 +6,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const turso = createClient({
-  url: process.env.VITE_TURSO_URL ?? "",
-  authToken: process.env.VITE_AUTH_TOKEN ?? "",
+  url: process.env.VITE_TURSO_URL,
+  authToken: process.env.VITE_AUTH_TOKEN,
 });
 
 const app = express();
@@ -138,6 +138,5 @@ const PORT = process.env.PORT ?? 3000;
 app.listen(PORT, () => {
   console.log(`Server is running in ${PORT}`);
 });
-
 
 export default app;
