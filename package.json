@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm-run-all 'vite build' start",
-    "start": "npx tsx ./backend/server.js",
+    "build": "vite build && npx tsx ./backend/server.js",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
