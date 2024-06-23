@@ -1,15 +1,8 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "dist",
-      "use": "@vercel/static"
-    }
-  ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "dist"
+      "src": "/[^.]+",
+      "dest": "/"
     }
   ]
 }
