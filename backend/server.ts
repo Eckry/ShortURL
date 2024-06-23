@@ -131,7 +131,7 @@ app.get("/api/getall", async (_, res) => {
   res.status(200).send(result.rows);
 });
 
-app.use(express.static("../client/dist"));
+app.use(express.static("../dist"));
 
 const PORT = process.env.PORT ?? 3000;
 

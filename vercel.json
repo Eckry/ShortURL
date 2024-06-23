@@ -4,12 +4,5 @@
       "src": "/[^.]+",
       "dest": "/"
     }
-  ],
-  "builds": [
-    { "src": "./backend/server.js", "use": "@vercel/node" },
-    {
-      "src": "dist",
-      "use": "@vercel/static"
-    }
   ]
 }
