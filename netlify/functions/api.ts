@@ -7,8 +7,8 @@ import serverless from "serverless-http";
 dotenv.config();
 
 export const turso = createClient({
-  url: process.env.VITE_TURSO_URL,
-  authToken: process.env.VITE_AUTH_TOKEN,
+  url: process.env.VITE_TURSO_URL ?? "",
+  authToken: process.env.VITE_AUTH_TOKEN ?? "",
 });
 
 const app = express();
@@ -132,7 +132,7 @@ app.get("/api/getall", async (_, res) => {
   res.status(200).send(result.rows);
 });
 
-// app.use(express.static("./dist"));
+app.use(express.static("../../dist"));
 
 const PORT = process.env.PORT ?? 3000;
 
