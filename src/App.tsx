@@ -111,8 +111,7 @@ function App() {
       const [err, urls] = await getUrls();
 
       if (err) {
-        toast.error(err.message);
-        return;
+        return setAllUrls([]);
       }
 
       if (urls) setAllUrls(urls);

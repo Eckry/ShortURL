@@ -92,3 +92,10 @@
   color: var(--primary);
   text-wrap: nowrap;
 }
+
+.no-urls {
+  text-align: center;
+  margin: 100px auto;
+  font-size: clamp(10px, 4vw, 30px);
+  color: rgba(0, 0, 0, 0.301);
+}

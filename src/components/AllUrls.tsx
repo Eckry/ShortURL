@@ -29,12 +29,20 @@ export default function AllUrls({
     }
   }, [urls]);
 
+  if (urls.length === 0) {
+    return (
+      <section>
+        <p className="no-urls">Be the first to create an url!</p>
+      </section>
+    );
+  }
+
   return (
     <section className="urls-section">
       {urls.map(({ shortUrl, realUrl, clicks }) => {
         let clicksFormated: string | number = clicks;
         if (clicks > 999) clicksFormated = `${Math.floor(clicks / 1000)}k`;
-        if(clicks > 10000) clicksFormated = "Too much"
+        if (clicks > 10000) clicksFormated = "Too much";
 
         return (
           <div key={shortUrl} className="relative">
