@@ -1,10 +1,15 @@
 import { type deleteApiResponse } from "../types";
 
+const DELETE_URL =
+  process.env.NODE_ENV === "production"
+    ? "/api/deleteurl"
+    : "http://localhost:3000/api/deleteurl";
+
 export default async function deleteUrl(
   shortUrl: string
 ): Promise<[Error?, deleteApiResponse?]> {
   try {
-    const res = await fetch("/api/deleteurl", {
+    const res = await fetch(DELETE_URL, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url: shortUrl }),

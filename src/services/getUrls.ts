@@ -1,8 +1,13 @@
 import { Url } from "../types";
 
+const GET_URL =
+  process.env.NODE_ENV === "production"
+    ? "/api/getall"
+    : "http://localhost:3000/api/getall";
+
 export default async function getUrls(): Promise<[Error?, Url[]?]> {
   try {
-    const res = await fetch("/api/getall");
+    const res = await fetch(GET_URL);
 
     if (!res.ok)
       return [new Error(`Error getting the urls: ${res.statusText}`)];

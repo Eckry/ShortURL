@@ -5,11 +5,16 @@ interface Body {
   name: string;
 }
 
+const ADD_URL =
+  process.env.NODE_ENV === "production"
+    ? "/api/addurl"
+    : "http://localhost:3000/api/addurl";
+
 export default async function uploadUrl(
   body: Body
 ): Promise<[Error?, addApiResponse?]> {
   try {
-    const res = await fetch("/api/addurl", {
+    const res = await fetch(ADD_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
