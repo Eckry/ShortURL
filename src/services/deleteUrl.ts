@@ -4,7 +4,7 @@ export default async function deleteUrl(
   shortUrl: string
 ): Promise<[Error?, deleteApiResponse?]> {
   try {
-    const res = await fetch("api/deleteurl", {
+    const res = await fetch("/api/deleteurl", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url: shortUrl }),

@@ -9,7 +9,7 @@ export default async function uploadUrl(
   body: Body
 ): Promise<[Error?, addApiResponse?]> {
   try {
-    const res = await fetch("api/addurl", {
+    const res = await fetch("/api/addurl", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),

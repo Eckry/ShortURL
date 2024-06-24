@@ -2,7 +2,7 @@ export default async function updateClicks(
   shortUrl: string
 ): Promise<[Error?, boolean?]> {
   try {
-    const res = await fetch("api/updateclicks", {
+    const res = await fetch("/api/updateclicks", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ shortUrl }),

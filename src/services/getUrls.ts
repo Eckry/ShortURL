@@ -2,7 +2,7 @@ import { Url } from "../types";
 
 export default async function getUrls(): Promise<[Error?, Url[]?]> {
   try {
-    const res = await fetch("api/getall");
+    const res = await fetch("/api/getall");
 
     if (!res.ok)
       return [new Error(`Error getting the urls: ${res.statusText}`)];
