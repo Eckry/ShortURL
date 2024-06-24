@@ -90,4 +90,5 @@
   padding: 4px 8px;
   box-shadow: 4px 0 0 0 black;
   color: var(--primary);
+  text-wrap: nowrap;
 }

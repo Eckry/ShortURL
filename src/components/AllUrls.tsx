@@ -18,7 +18,7 @@ export default function AllUrls({
 }: Props) {
   const [urlsOwned, setUrlsOwned] = useState<Record<string, string>>({});
 
-  function handleClick(){
+  function handleClick() {
     toast.success("Link copied!");
   }
 
@@ -32,6 +32,10 @@ export default function AllUrls({
   return (
     <section className="urls-section">
       {urls.map(({ shortUrl, realUrl, clicks }) => {
+        let clicksFormated: string | number = clicks;
+        if (clicks > 999) clicksFormated = `${Math.floor(clicks / 1000)}k`;
+        if(clicks > 10000) clicksFormated = "Too much"
+
         return (
           <div key={shortUrl} className="relative">
             <a
@@ -59,7 +63,7 @@ export default function AllUrls({
               </button>
             </CopyToClipboard>
 
-            <p className="clicks">Clicks: {clicks}</p>
+            <p className="clicks">Clicks: {clicksFormated}</p>
           </div>
         );
       })}
