@@ -122,7 +122,12 @@ app.get("/:shortUrl", async (req, res) => {
 });
 
 app.get("/api/getall", async (_, res) => {
-  const result = await turso.execute("SELECT * FROM urls");
+  let result;
+  try {
+    result = await turso.execute("SELECT * FROM urls");
+  } catch (err) {
+    return res.status(404).send({ message: "Error fetching urls" });
+  }
 
   if (result.rows.length === 0) {
     res.status(404).send({ message: "No urls found" });
