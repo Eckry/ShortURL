@@ -122,12 +122,7 @@ app.get("/:shortUrl", async (req, res) => {
 });
 
 app.get("/api/getall", async (_, res) => {
-  let result;
-  try {
-    result = await turso.execute("SELECT * FROM urls");
-  } catch (err) {
-    return res.status(404).send({ message: "Error fetching urls" });
-  }
+  const result = await turso.execute("SELECT * FROM urls");
 
   if (result.rows.length === 0) {
     res.status(404).send({ message: "No urls found" });
@@ -137,7 +132,7 @@ app.get("/api/getall", async (_, res) => {
   res.status(200).send(result.rows);
 });
 
-app.use(express.static("../../dist"));
+//app.use(express.static("../../dist"));
 
 const PORT = process.env.PORT ?? 3000;
 
