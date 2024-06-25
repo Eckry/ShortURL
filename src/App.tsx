@@ -10,6 +10,8 @@ import getUrls from "./services/getUrls";
 import UrlForm from "./components/UrlForm";
 import Message from "./components/Message";
 import Loading from "./components/Loading";
+import Searcher from "./components/Searcher";
+import NoUrlsFound from "./components/NoUrlsFound";
 
 function isUrl(url: string) {
   try {
@@ -24,6 +26,7 @@ function App() {
   const [allUrls, setAllUrls] = useState<Url[]>([]);
   const [lastUrl, setLastUrl] = useState<addApiResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [search, setSearch] = useState("");
 
   async function handleUpdateClicks(shortUrl: string) {
     const [err] = await updateClicks(shortUrl);
@@ -107,6 +110,15 @@ function App() {
     }
   }
 
+  const filteredUrls = allUrls.filter((url) => {
+    const { realUrl, shortUrl } = url;
+    return realUrl.includes(search) || shortUrl.includes(search);
+  });
+
+  function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearch(e.target.value);
+  }
+
   useEffect(() => {
     async function fetchData() {
       setIsLoading(true);
@@ -124,17 +136,24 @@ function App() {
     fetchData();
   }, []);
 
+  const noUrlsFound = search === "" && allUrls.length === 0 && !isLoading;
+
   return (
     <main className="main-container">
       <Toaster />
       <UrlForm handleSubmit={handleSubmit} />
       {!!lastUrl && <Message lastUrl={lastUrl} />}
-
-      {!isLoading ? <AllUrls
-        handleUpdateClicks={handleUpdateClicks}
-        handleDelete={handleDelete}
-        urls={allUrls}
-      />: <Loading />}
+      <Searcher onChange={handleOnChange} search={search} />
+      {noUrlsFound && <NoUrlsFound />}
+      {!isLoading ? (
+        <AllUrls
+          handleUpdateClicks={handleUpdateClicks}
+          handleDelete={handleDelete}
+          urls={filteredUrls}
+        />
+      ) : (
+        <Loading />
+      )}
     </main>
   );
 }

@@ -29,13 +29,7 @@ export default function AllUrls({
     }
   }, [urls]);
 
-  if (urls.length === 0) {
-    return (
-      <section>
-        <p className="no-urls">Be the first to create an url!</p>
-      </section>
-    );
-  }
+  if (urls.length === 0) return;
 
   return (
     <section className="urls-section">
