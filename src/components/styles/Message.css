@@ -1,6 +1,6 @@
 .message-section {
   text-align: center;
-  margin: 32px auto;
+  margin: 32px auto 0 auto;
   background-color: var(--secondary);
   color: var(--primary);
   padding: 8px 16px 24px 16px;
