@@ -9,9 +9,9 @@ import updateClicks from "./services/updateClicks";
 import getUrls from "./services/getUrls";
 import UrlForm from "./components/UrlForm";
 import Message from "./components/Message";
+import Loading from "./components/Loading";
 
 function isUrl(url: string) {
-  console.log(url);
   try {
     new URL(url);
     return true;
@@ -23,6 +23,7 @@ function isUrl(url: string) {
 function App() {
   const [allUrls, setAllUrls] = useState<Url[]>([]);
   const [lastUrl, setLastUrl] = useState<addApiResponse | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleUpdateClicks(shortUrl: string) {
     const [err] = await updateClicks(shortUrl);
@@ -108,13 +109,16 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
+      setIsLoading(true);
       const [err, urls] = await getUrls();
 
       if (err) {
-        return setAllUrls([]);
+        setAllUrls([]);
+        return setIsLoading(false);
       }
 
       if (urls) setAllUrls(urls);
+      setIsLoading(false);
     }
 
     fetchData();
@@ -125,11 +129,12 @@ function App() {
       <Toaster />
       <UrlForm handleSubmit={handleSubmit} />
       {!!lastUrl && <Message lastUrl={lastUrl} />}
-      <AllUrls
+
+      {!isLoading ? <AllUrls
         handleUpdateClicks={handleUpdateClicks}
         handleDelete={handleDelete}
         urls={allUrls}
-      />
+      />: <Loading />}
     </main>
   );
 }

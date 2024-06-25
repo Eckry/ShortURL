@@ -4,6 +4,8 @@
   --tertiary: #373A40;
   --highlight: #DC5F00;
   --light-highlight: #e19e6a;
+  --gray-transparent: rgba(128, 128, 128, 0.274);
+  --white-transparent: rgb(212, 212, 212);
 }
 
 body {
