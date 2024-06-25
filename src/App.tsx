@@ -12,6 +12,7 @@ import Message from "./components/Message";
 import Loading from "./components/Loading";
 import Searcher from "./components/Searcher";
 import NoUrlsFound from "./components/NoUrlsFound";
+import Example from "./components/Example";
 
 function isUrl(url: string) {
   try {
@@ -155,6 +156,7 @@ function App() {
       <Toaster />
       <UrlForm handleSubmit={handleSubmit} />
       {!!lastUrl && <Message lastUrl={lastUrl} />}
+      <Example />
       <Searcher onChange={handleOnChange} search={search} />
       {noUrlsFound && <NoUrlsFound />}
       {!isLoading ? (
