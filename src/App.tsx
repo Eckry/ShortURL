@@ -26,7 +26,12 @@ function App() {
   const [allUrls, setAllUrls] = useState<Url[]>([]);
   const [lastUrl, setLastUrl] = useState<addApiResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(() => {
+    const params = new URL(window.location.href).searchParams;
+    const query = params.get("search");
+    if (query) return query;
+    return "";
+  });
 
   async function handleUpdateClicks(shortUrl: string) {
     const [err] = await updateClicks(shortUrl);
@@ -135,6 +140,13 @@ function App() {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const newPathName =
+      search === "" ? window.location.pathname : `?search=${search}`;
+
+    window.history.replaceState({}, "", newPathName);
+  }, [search]);
 
   const noUrlsFound = search === "" && allUrls.length === 0 && !isLoading;
 
