@@ -157,6 +157,7 @@ function App() {
       <UrlForm handleSubmit={handleSubmit} />
       {!!lastUrl && <Message lastUrl={lastUrl} />}
       <Example />
+      <h1 className="urls-title">Urls created so far</h1>
       <Searcher onChange={handleOnChange} search={search} />
       {noUrlsFound && <NoUrlsFound />}
       {!isLoading ? (

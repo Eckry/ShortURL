@@ -1,10 +1,12 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
-.main-container { 
+.main-container {
   margin: auto;
   max-width: 1200px;
   width: 90%;
@@ -14,4 +16,13 @@
   align-items: center;
   justify-content: center;
   gap: 50px;
+}
+
+.urls-title {
+  font-size: clamp(20px, 5vw, 48px);
+  width: 100%;
+  text-align: center;
+  background-color: var(--secondary);
+  color: var(--light-highlight);
+  box-shadow: 8px 8px 0 0 black;
 }
