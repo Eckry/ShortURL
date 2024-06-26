@@ -11,6 +11,7 @@
   border: 2px solid var(--tertiary);
   background-color: var(--tertiary);
   color: var(--primary);
+  font-family: "Chivo Mono Variable", sans-serif;
   outline: none;
 }
 

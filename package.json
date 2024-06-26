@@ -11,6 +11,7 @@
     "start": "npx tsx server.js"
   },
   "dependencies": {
+    "@fontsource-variable/chivo-mono": "^5.0.21",
     "@libsql/client": "^0.3.6",
     "@netlify/functions": "^2.8.0",
     "@types/cors": "^2.8.17",
