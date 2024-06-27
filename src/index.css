@@ -1,8 +1,8 @@
 :root {
-  --primary: #EEEEEE;
-  --secondary: #686D76;
-  --tertiary: #373A40;
-  --highlight: #DC5F00;
+  --primary: #eeeeee;
+  --secondary: #686d76;
+  --tertiary: #373a40;
+  --highlight: #dc5f00;
   --light-highlight: #e19e6a;
   --gray-transparent: rgba(128, 128, 128, 0.274);
   --white-transparent: rgb(212, 212, 212);
@@ -10,5 +10,6 @@
 
 body {
   font-family: "Chivo Mono Variable", sans-serif;
-   background-color: var(--primary);
+  background-color: var(--primary);
+  padding-bottom: 50px;
 }
