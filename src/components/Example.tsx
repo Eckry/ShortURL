@@ -22,7 +22,7 @@ export default function Example() {
           <label className="form-label">
             <input
               disabled
-              value="https://www.youtube.com/watch?v=dQw4w9..."
+              value="https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=1s"
               className="example-form-input"
               type="text"
             />
