@@ -2,12 +2,14 @@
   position: relative;
   box-shadow: 5px 5px 0 0 black;
   display: flex;
+  width: 400px;
+  max-width: 90%;
 }
 
 .searcher {
   padding: 0.5rem 0 0.5rem 0.5rem;
   font-size: 16px;
-  width: 400px;
+  width: 100%;
   border: 2px solid var(--tertiary);
   background-color: var(--tertiary);
   color: var(--primary);

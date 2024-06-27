@@ -1,17 +1,16 @@
 .urls-section {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 48px;
   margin-bottom: 32px;
+  width: 100%;
 }
 
 .relative {
   position: relative;
-  width: 250px;
 }
 
 .url-container {
-  width: 250px;
   background-color: var(--tertiary);
   padding: 0.5rem 1rem;
   text-align: center;

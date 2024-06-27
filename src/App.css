@@ -19,7 +19,7 @@
 }
 
 .urls-title {
-  font-size: clamp(20px, 5vw, 48px);
+  font-size: clamp(20px, 7vw, 48px);
   width: 100%;
   text-align: center;
   background-color: var(--secondary);

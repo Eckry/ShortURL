@@ -21,7 +21,8 @@
   justify-content: center;
   gap: 32px;
   background-color: var(--secondary);
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   padding: 32px 16px 16px 16px;
   position: relative;
 }
@@ -56,6 +57,8 @@
   background-color: var(--tertiary);
   color: var(--primary);
   padding: 0.5rem;
+  text-wrap: nowrap;
+  overflow-x: auto;
 }
 
 .example-step {
