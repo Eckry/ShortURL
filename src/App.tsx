@@ -153,6 +153,10 @@ function App() {
 
   return (
     <main className="main-container">
+      <header className="header-container">
+        <h1>Urlsito</h1>
+        <h2 className="header-h2">A url shortener</h2>
+      </header>
       <Toaster />
       <UrlForm handleSubmit={handleSubmit} />
       {!!lastUrl && <Message lastUrl={lastUrl} />}

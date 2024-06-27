@@ -26,3 +26,18 @@
   color: var(--light-highlight);
   box-shadow: 8px 8px 0 0 black;
 }
+
+.header-container {
+  font-size: clamp(20px, 5vw, 36px);
+  width: 100%;
+  text-align: center;
+  background-color: var(--secondary);
+  color: var(--light-highlight);
+  box-shadow: 8px 8px 0 0 black;
+  padding-bottom: 15px;
+}
+
+.header-h2 {
+  font-size: clamp(1px, 2vw, 16px);
+  margin-top: -1%;
+}
