@@ -180,7 +180,7 @@ function App() {
           <Loading />
         )}
         {hasMorePages && (
-          <button onClick={() => setPage((prevPage) => prevPage + 1)}>
+          <button className="show-more" onClick={() => setPage((prevPage) => prevPage + 1)}>
             Show more
           </button>
         )}
