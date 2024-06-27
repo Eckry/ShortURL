@@ -13,6 +13,7 @@ import Loading from "./components/Loading";
 import Searcher from "./components/Searcher";
 import NoUrlsFound from "./components/NoUrlsFound";
 import Example from "./components/Example";
+import { MIN_NAME_LENGTH, URLS_PER_PAGE } from "./consts.d";
 
 function isUrl(url: string) {
   try {
@@ -80,7 +81,7 @@ function App() {
       return;
     }
 
-    if (target.shorturl.value.length < 3) {
+    if (target.shorturl.value.length < MIN_NAME_LENGTH) {
       toast.warning("Your url name must have at least 3 characters");
       return;
     }
@@ -151,38 +152,40 @@ function App() {
   });
 
   const noUrlsFound = search === "" && allUrls.length === 0 && !isLoading;
-  const hasMorePages = filteredUrls.length / 4 > page;
+  const hasMorePages = filteredUrls.length / URLS_PER_PAGE > page;
 
-  const newUrls = filteredUrls.slice(0, page * 4);
+  const newUrls = filteredUrls.slice(0, page * URLS_PER_PAGE);
 
   return (
-    <main className="main-container">
+    <>
       <Toaster />
-      <header className="header-container">
-        <h1>Urlsito</h1>
-        <h2 className="header-h2">A url shortener</h2>
-      </header>
-      <UrlForm handleSubmit={handleSubmit} />
-      {!!lastUrl && <Message lastUrl={lastUrl} />}
-      <Example />
-      <h1 className="urls-title">Urls created so far</h1>
-      <Searcher onChange={handleOnChange} search={search} />
-      {noUrlsFound && <NoUrlsFound />}
-      {!isLoading ? (
-        <AllUrls
-          handleUpdateClicks={handleUpdateClicks}
-          handleDelete={handleDelete}
-          urls={newUrls}
-        />
-      ) : (
-        <Loading />
-      )}
-      {hasMorePages && (
-        <button onClick={() => setPage((prevPage) => prevPage + 1)}>
-          Show more
-        </button>
-      )}
-    </main>
+      <main className="main-container">
+        <header className="header-container">
+          <h1>Urlsito</h1>
+          <h2 className="header-h2">A url shortener</h2>
+        </header>
+        <UrlForm handleSubmit={handleSubmit} />
+        {!!lastUrl && <Message lastUrl={lastUrl} />}
+        <Example />
+        <h1 className="urls-title">Urls created so far</h1>
+        <Searcher onChange={handleOnChange} search={search} />
+        {noUrlsFound && <NoUrlsFound />}
+        {!isLoading ? (
+          <AllUrls
+            handleUpdateClicks={handleUpdateClicks}
+            handleDelete={handleDelete}
+            urls={newUrls}
+          />
+        ) : (
+          <Loading />
+        )}
+        {hasMorePages && (
+          <button onClick={() => setPage((prevPage) => prevPage + 1)}>
+            Show more
+          </button>
+        )}
+      </main>
+    </>
   );
 }
 
