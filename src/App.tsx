@@ -27,6 +27,7 @@ function App() {
   const [allUrls, setAllUrls] = useState<Url[]>([]);
   const [lastUrl, setLastUrl] = useState<addApiResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(1);
   const [search, setSearch] = useState(() => {
     const params = new URL(window.location.href).searchParams;
     const query = params.get("search");
@@ -116,11 +117,6 @@ function App() {
     }
   }
 
-  const filteredUrls = allUrls.filter((url) => {
-    const { realUrl, shortUrl } = url;
-    return realUrl.includes(search) || shortUrl.includes(search);
-  });
-
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value);
   }
@@ -149,15 +145,23 @@ function App() {
     window.history.replaceState({}, "", newPathName);
   }, [search]);
 
+  const filteredUrls = allUrls.filter((url) => {
+    const { realUrl, shortUrl } = url;
+    return realUrl.includes(search) || shortUrl.includes(search);
+  });
+
   const noUrlsFound = search === "" && allUrls.length === 0 && !isLoading;
+  const hasMorePages = filteredUrls.length / 4 > page;
+
+  const newUrls = filteredUrls.slice(0, page * 4);
 
   return (
     <main className="main-container">
+      <Toaster />
       <header className="header-container">
         <h1>Urlsito</h1>
         <h2 className="header-h2">A url shortener</h2>
       </header>
-      <Toaster />
       <UrlForm handleSubmit={handleSubmit} />
       {!!lastUrl && <Message lastUrl={lastUrl} />}
       <Example />
@@ -168,10 +172,15 @@ function App() {
         <AllUrls
           handleUpdateClicks={handleUpdateClicks}
           handleDelete={handleDelete}
-          urls={filteredUrls}
+          urls={newUrls}
         />
       ) : (
         <Loading />
+      )}
+      {hasMorePages && (
+        <button onClick={() => setPage((prevPage) => prevPage + 1)}>
+          Show more
+        </button>
       )}
     </main>
   );
