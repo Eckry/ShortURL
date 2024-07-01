@@ -22,8 +22,8 @@ function Card() {
 export default function Loading() {
   return (
     <section className="urls-section">
-      {Array.from({ length: 10 }).map(() => {
-        return <Card />;
+      {Array.from({ length: 10 }).map((_, index) => {
+        return <Card key={index} />;
       })}
     </section>
   );
