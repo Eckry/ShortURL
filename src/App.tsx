@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import { type addApiResponse, type Url } from "./types";
 import AllUrls from "./components/AllUrls";
@@ -14,6 +14,7 @@ import Searcher from "./components/Searcher";
 import NoUrlsFound from "./components/NoUrlsFound";
 import Example from "./components/Example";
 import { MIN_NAME_LENGTH, URLS_PER_PAGE } from "./consts.d";
+import { GitHubIcon } from "./icons";
 
 function isUrl(url: string) {
   try {
@@ -146,10 +147,14 @@ function App() {
     window.history.replaceState({}, "", newPathName);
   }, [search]);
 
-  const filteredUrls = allUrls.filter((url) => {
-    const { realUrl, shortUrl } = url;
-    return realUrl.includes(search) || shortUrl.includes(search);
-  });
+  const filteredUrls = useMemo(
+    () =>
+      allUrls.filter((url) => {
+        const { realUrl, shortUrl } = url;
+        return realUrl.includes(search) || shortUrl.includes(search);
+      }),
+    [search, allUrls]
+  );
 
   const noUrlsFound = search === "" && allUrls.length === 0 && !isLoading;
   const hasMorePages = filteredUrls.length / URLS_PER_PAGE > page;
@@ -180,11 +185,21 @@ function App() {
           <Loading />
         )}
         {hasMorePages && (
-          <button className="show-more" onClick={() => setPage((prevPage) => prevPage + 1)}>
+          <button
+            className="show-more"
+            onClick={() => setPage((prevPage) => prevPage + 1)}
+          >
             Show more
           </button>
         )}
       </main>
+      <a
+        href="https://github.com/Eckry/ShortURL"
+        target="_blank"
+        className="github"
+      >
+        <GitHubIcon />
+      </a>
     </>
   );
 }

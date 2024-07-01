@@ -54,3 +54,23 @@
 .show-more:hover {
   background-color: var(--secondary);
 }
+
+.github {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  background-color: var(--tertiary);
+  color: var(--primary);
+  border-radius: 50%;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.25s ease-in-out;
+  z-index: 101;
+}
+
+.github:hover {
+  scale: 1.1;
+  background-color: var(--secondary);
+}
