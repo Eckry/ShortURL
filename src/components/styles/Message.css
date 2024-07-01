@@ -11,7 +11,7 @@
 
 .message-title {
   border-bottom: 3px solid var(--highlight);
-  padding: 8px;
+  padding: 8px 20px;
   color: var(--light-highlight);
   margin-bottom: 16px;
 }
