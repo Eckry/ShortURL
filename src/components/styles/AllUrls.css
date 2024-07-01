@@ -63,7 +63,7 @@
   cursor: pointer;
   background-color: var(--tertiary);
   color: var(--highlight);
-  border: 3px solid var(--highlight);
+  border: 2px solid var(--highlight);
   display: flex;
   justify-content: center;
   align-items: center;
