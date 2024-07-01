@@ -5,7 +5,7 @@
   justify-content: center;
   gap: 32px;
   background-color: var(--secondary);
-  width: 90%;
+  width: 100%;
   max-width: 400px;
   padding: 32px 16px 16px 16px;
   position: relative;

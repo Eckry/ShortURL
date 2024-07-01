@@ -1,7 +1,7 @@
 .example-container {
   background-color: var(--secondary);
   padding: 1rem;
-  width: 80%;
+  width: 100%;
   box-shadow: 8px 8px 0 0 black;
 }
 
